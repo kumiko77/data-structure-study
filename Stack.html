@@ -1,56 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Stack</title>
 </head>
+
 <body>
   <script>
-function Stack() {
-  this.items = []
-  // 入栈
-  Stack.prototype.push = function (element) {
-    this.items.push(element)
-  }
-  // 出栈
-  Stack.prototype.pop = function () {
-    return this.items.pop()
-  }
-  // 查看栈顶元素
-  Stack.prototype.peek = function () {
-    return this.items[this.items.length - 1]
-  }
-  // 判断栈是否为空
-  Stack.prototype.isEmpty = function () {
-    return this.items.length === 0
-  } 
-  // 获取栈中元素个数
-  Stack.prototype.size = function () {
-    return this.items.length
-  }
-  // 转字符串
-  Stack.prototype.toString = function () {
-    let string = ''
-    for(let i = 0; i < this.items.length; i++){
-      string += `${this.items[i]}   `
+    function Stack() {
+      this.items = []
+      // 入栈
+      Stack.prototype.push = function (element) {
+        this.items.push(element)
+      }
+      // 出栈
+      Stack.prototype.pop = function () {
+        return this.items.pop()
+      }
+      // 查看栈顶元素
+      Stack.prototype.peek = function () {
+        return this.items[this.items.length - 1]
+      }
+      // 判断栈是否为空
+      Stack.prototype.isEmpty = function () {
+        return this.items.length === 0
+      }
+      // 获取栈中元素个数
+      Stack.prototype.size = function () {
+        return this.items.length
+      }
+      // 转字符串
+      Stack.prototype.toString = function () {
+        let string = ''
+        for (let i = 0; i < this.items.length; i++) {
+          string += `${this.items[i]}   `
+        }
+        return string
+      }
     }
-    return string
-  }
-}
 
-    
-    
+
+
     function dec2bin(num) {
       const stack = new Stack();
-      while(num > 0) {
+      while (num > 0) {
         stack.push(num % 2)
         num = Math.floor(num / 2)
-      } 
+      }
 
       let resultString = ''
       const stackLength = stack.size()
-      for(let i = 0; i < stackLength; i++) {
+      for (let i = 0; i < stackLength; i++) {
         resultString += `${stack.pop()} `
       }
       console.log(resultString)
@@ -58,4 +60,5 @@ function Stack() {
     dec2bin(100)
   </script>
 </body>
+
 </html>
