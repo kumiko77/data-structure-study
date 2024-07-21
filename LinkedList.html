@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function LinkedList () {
+      function Node (data) {
+        this.data = data
+        this.next = null
+      }
+
+      this.head = null
+      this.length = 0
+
+      // 向链表末尾添加元素
+      LinkedList.prototype.append = function (element) {
+        const node = new Node(element)
+        // 第一个节点
+        if(this.length === 0) {
+          this.head = node
+        } else {
+          let current = this.head
+          while(current.next) {
+            current = current.next
+          }
+          current.next = node
+        }
+        this.length += 1
+      }
+
+      // 向链表指定位置插入元素
+      LinkedList.prototype.insert = function(element, position) {
+        const node = new Node(element)
+        if(position < 0 || position > this.length) {
+          return false
+        }
+
+        if(position === 0) {
+          this.head = node
+        } else {
+          let index = 0
+          let current = this.head
+          let prev = null
+          while(index++ < position) {
+            prev = current
+            current = current.next
+          }
+          prev.next = node
+          node.next = current
+        }
+        this.length += 1
+      }
+
+      // 获取指定位置元素
+      LinkedList.prototype.get = function(targetIndex) {
+        if(targetIndex < 0 || targetIndex >= this.length) {
+          return false
+        }
+
+        let index = 0
+        let current = this.head
+        
+        while(index++ < targetIndex) {
+          current = current.next
+        }
+
+        return current
+
+      }
+
+      // 返回元素在链表中的索引
+      LinkedList.prototype.getIndex = function(element) {
+        let index = 0
+        let current = this.head
+        
+        while(current.next) {
+          if(current.data === element) {
+            return index
+          }
+          current = current.next
+          index ++
+        }
+
+        return -1
+      }
+
+      // 更新指定下标元素
+      LinkedList.prototype.update = function(element, targetIndex) {
+        if(targetIndex < 0 || targetIndex >= this.length) {
+          return false
+        }
+
+        let index = 0
+        let current = this.head
+
+        while(index++ < targetIndex) {
+          current = current.next
+        }
+
+        current.data = element
+      }
+
+      // 删除指定下标元素
+      LinkedList.prototype.removeAt = function(RemoveIndex) {
+        console.log(RemoveIndex, this.length)
+        if(RemoveIndex < 0 || RemoveIndex >= this.length) {
+          return false
+        }
+
+        let index = 0
+        let current = this.head
+        let prev = null
+
+        while(index++ < RemoveIndex) {
+          prev = current
+          current = current.next
+        }
+
+        prev.next = current.next
+        this.length -= 1
+      }
+
+      // 删除指定元素
+      LinkedList.prototype.remove = function(element) {
+        let index = 0
+        let current = this.head
+        let prev = null
+        
+        while(current.next) {
+          prev = current
+          current = current.next
+
+          if(current.data === element) {
+            prev.next = current.next
+          }
+          index ++
+        }
+      }
+
+      // 判断链表是否为空
+      LinkedList.prototype.empty = function() {
+        return this.length === 0
+      }
+
+      // 获取链表长度
+      LinkedList.prototype.size = function() {
+        return this.length
+      }
+
+      // 转字符串
+      LinkedList.prototype.toString = function() {
+        let resultString = ''
+        let current = this.head
+        while(current.next) {
+          resultString += `${current.data} -> `
+          current = current.next
+        }
+        resultString += `${current.data}`
+        return resultString
+      }
+    }
+
+    const linkedList = new LinkedList()
+    linkedList.append('1号节点')
+    linkedList.append('2号节点')
+    linkedList.append('5号节点')
+    linkedList.append('6号节点')
+
+    linkedList.insert('3号节点', 2)
+    linkedList.insert('4号节点', 3)
+
+
+
+    // console.log(linkedList.get(3))
+    // console.log(linkedList.get(4))
+
+    // console.log(linkedList.getIndex('3号节点'))
+    // console.log(linkedList.getIndex('5号节点'))
+    // console.log(linkedList.getIndex('7号节点'))
+
+    // linkedList.update('6号节点-update', 5)
+
+    // linkedList.removeAt(3)
+
+    // linkedList.remove('3号节点')
+
+    const string = linkedList.toString()
+    console.log(string)
+  </script>
+</body>
+</html>
