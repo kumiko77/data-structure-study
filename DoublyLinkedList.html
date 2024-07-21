@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function DoublyLinkedList() {
+      this.head = null
+      this.tail = null
+      this.length = 0
+
+      function Node(data) {
+        this.data = data
+        this.next = null
+        this.prev = null
+      }
+
+      // 末尾插入
+      DoublyLinkedList.prototype.append = function (data) {
+        let node = new Node(data)
+
+        // 添加的是第一个节点
+        if (this.length == 0) {
+          this.tail = node
+          this.head = node
+          // 添加的不是第一个节点
+        } else {
+          node.prev = this.tail
+          this.tail.next = node
+          this.tail = node
+        }
+        this.length += 1
+      }
+
+      // 指定位置插入
+      DoublyLinkedList.prototype.insert = function(data, position) {
+        const node = new Node(data)
+        if(position < 0 || position > this.length) {
+          return false
+        }
+
+        if(position === 0) {
+          this.head = node
+        } else {
+          let index = 0
+          let current = this.head
+          // 前节点
+          let prev = null
+          // 后节点
+          let next = null
+          while(index++ < position) {
+            prev = current
+            next = current.next
+            current = current.next
+          }
+          // 改变前节点指向
+          prev.next = node
+          // 改变后节点指向
+          next.prev = node
+          // 设置插入节点指向
+          node.prev = prev
+          node.next = next
+        }
+
+        this.length += 1
+      }
+
+      // 转字符串
+      DoublyLinkedList.prototype.toString = function() {
+        return this.forwardString()
+      }
+
+      // 转字符串【正向】
+      DoublyLinkedList.prototype.forwardString = function() {
+        let current = this.head
+        let string = ''
+
+        while(current.next) {
+          string += `${current.data} -> `
+
+          current = current.next
+        }
+
+        string += `${current.data}`
+        return string
+      }
+
+      // 转字符串【反向】
+      DoublyLinkedList.prototype.backwordString = function() {
+        let current = this.tail
+        let string = ''
+
+        while(current.prev) {
+          console.log(current)
+          string += `${current.data} -> `
+
+          current = current.prev
+        }
+        
+        string += `${current.data}`
+
+        return string
+      }
+    }
+
+    const doublyLinkedList = new DoublyLinkedList()
+
+    doublyLinkedList.append('第1节点')
+    doublyLinkedList.append('第2节点')
+    doublyLinkedList.append('第5节点')
+
+    doublyLinkedList.insert('第3节点', 2)
+    doublyLinkedList.insert('第4节点', 3)
+
+    const string = doublyLinkedList.toString()
+  </script>
+</body>
+
+</html>
