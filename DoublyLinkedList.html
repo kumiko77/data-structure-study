@@ -70,6 +70,60 @@
         this.length += 1
       }
 
+      // 删除头节点
+      DoublyLinkedList.prototype.deleteHead = function() {
+        if(!this.head) {
+          return
+        }
+        // 头节点和尾节点相同，即链表中只有一个节点
+        if(this.head === this.tail) {
+          this.head = null
+          this.tail = null
+        } else {
+          this.head = this.head.next
+          this.head.prev = null
+        }
+      }
+
+      // 删除尾节点
+      DoublyLinkedList.prototype.deleteTail = function() {
+        if(!this.tail) {
+          return
+        }
+        // 头节点和尾节点相同，即链表中只有一个节点
+        if(this.head === this.tail) {
+          this.head = null
+          this.tail = null
+        } else {
+          this.tail = this.tail.prev
+          this.tail.next = null
+        }
+      }
+
+      // 删除指定节点
+      DoublyLinkedList.prototype.deleteValue = function(data) {
+        if(!data) {
+          return false
+        }
+        
+        if(this.head.data === data) {
+          return this.deleteHead()
+        }
+        
+        if(this.tail.data === data) {
+          return this.deleteTail()
+        }
+        
+        let current = this.head
+        while(current && current.data !== data) {
+          current = current.next
+        }
+        // 改变前项指向
+        current.prev.next = current.next
+        // 改变后项指向
+        current.next.prev = current.prev
+      }
+
       // 转字符串
       DoublyLinkedList.prototype.toString = function() {
         return this.forwardString()
@@ -117,7 +171,10 @@
     doublyLinkedList.insert('第3节点', 2)
     doublyLinkedList.insert('第4节点', 3)
 
+    doublyLinkedList.deleteValue('第4节点')
+
     const string = doublyLinkedList.toString()
+    console.log(string)
   </script>
 </body>
 
